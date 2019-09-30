@@ -17,7 +17,7 @@
   </div>
 </div>
 @endsection
-@section('footer')
+@section('scripts')
 <script type="text/javascript">
   Pusher.logToConsole = true;
 
@@ -30,8 +30,5 @@
   main_channel.bind('NewPostEvent', function(data) {
     console.log(JSON.stringify(data));
   });
-
-
-  
 </script>
 @endsection

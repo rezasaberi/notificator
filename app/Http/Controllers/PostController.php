@@ -17,7 +17,9 @@ class PostController extends Controller{
 
   public function view($id){
   	
-  	$data['post'] = Post::find($id);
+  	$data['post'] = Post::where('id', $id)->with('user')->first();
+    //echo "<pre>"; print_r($data['post']); exit;
+    //$data['post'] = Post::find($id)->with('user');
   	//$data['comments'] = Comment::where('post_id', $id)->get();
 
   	return view('post.view', $data);

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Events\NewComment;
+
 use App\Post;
 use App\Comment;
+
+use Auth;
 
 class CommentController extends Controller
 {
@@ -21,8 +25,11 @@ class CommentController extends Controller
   		'user_id' => Auth::id()
   	]);
 
-  	$comment = Comment::find($comment->id)->with('user');
+  	$comment = Comment::where('id', $comment->id)->with('user')->first();
 
+    //broadcast(new NewComment($comment))->toOthers();
+    \App\User::find(Auth::id())->notify(New \App\Notifications\NewComment);
+    
   	return $comment->toJson();
   }
 }
